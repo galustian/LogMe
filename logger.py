@@ -51,13 +51,13 @@ def update_log(log, year=None):
         json.dump(log, f)
 
 def log_active_app_per_second():
-    LOG_INTERVAL = 1
+    # how often should the log file be overwritten (every MEMORY_SECONDS seconds)
     MEMORY_SECONDS = 10
+    LOG_INTERVAL = 1
 
     now = datetime.now()
     
     log = read_log(year=now.year)
-    # how often should the log file be overwritten (every MEMORY_SECONDS seconds)
     seconds_in_memory_count = 0
 
     while True:
