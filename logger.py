@@ -28,13 +28,14 @@ def get_application_name(window_names):
         except KeyError:
             app_name = "Other"
 
-    return app_name    
-        
+    return app_name
+
+def active_app_name():
+    window_names = get_active_window_names()
+    return get_application_name(window_names)
 
 if __name__ == '__main__':
     while True:
-        window_names = get_active_window_names()
-        name = get_application_name(window_names)
-        print(name)
+        print(active_app_name())
         time.sleep(1)
 
