@@ -53,7 +53,7 @@ def update_log(log, year=None):
 def log_active_app_per_second():
     LOG_INTERVAL = 1
     MEMORY_SECONDS = 10
-    # TODO create seperate log file for each year
+
     now = datetime.now()
     
     log = read_log(year=now.year)
