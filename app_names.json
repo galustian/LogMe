@@ -1,0 +1,19 @@
+{
+    "code": "Visual Studio Code",
+    "jetbrains-idea-ce": "JetBrains IDEA",
+    "jetbrains-pycharm-ce": "JetBrains PyCharm",
+    
+    "gnome-terminal": "Terminal",
+    "libreoffice": "LibreOffice",
+    "xreader": "PDF Reader",
+    
+    "nemo-desktop": "Desktop",
+    "keepassx": "KeePass",
+    "spotify": "Spotify",
+    
+    "google-chrome": "Chrome",
+    "opera": "Opera",
+    "firefox": "Firefox",
+    "tor browser": "Tor",
+    "thunderbird": "Mail"
+}
