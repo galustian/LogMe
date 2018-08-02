@@ -2,6 +2,7 @@ import os
 import subprocess
 import json
 import time
+from datetime import datetime
 
 def get_active_window_names():
     abs_filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'get_window.sh')
@@ -34,8 +35,50 @@ def active_app_name():
     window_names = get_active_window_names()
     return get_application_name(window_names)
 
-if __name__ == '__main__':
-    while True:
-        print(active_app_name())
-        time.sleep(1)
+def read_log():
+    with open('log.json') as f:
+        log = json.load(f)
+    return log
 
+def update_log(log):
+    with open('log.json', 'w') as f:
+        json.dump(log, f)
+
+def log_active_app_per_second():
+    LOG_INTERVAL = 1
+    # TODO create seperate log file for each year
+    log = read_log()
+    
+    # how often should the log file be overwritten (every MEMORY_SECONDS seconds)
+    MEMORY_SECONDS = 5
+    seconds_in_memory_count = 0
+    
+    while True:
+        now = datetime.now()
+        # Format: Day-Month-Year
+        date_str = "{}-{}-{}".format(now.day, now.month, now.year)
+        
+        app_name = active_app_name()
+
+        if date_str in log:
+            if app_name in log[date_str]:
+                log[date_str][app_name] += LOG_INTERVAL
+            else:
+                log[date_str][app_name] = LOG_INTERVAL
+        else:
+            log[date_str] = {}
+            log[date_str][app_name] = LOG_INTERVAL
+        
+        # after LOG_INTERVAL seconds overwrite log file
+        if seconds_in_memory_count >= MEMORY_SECONDS:
+            update_log(log)
+
+            seconds_in_memory_count = 0
+        else:
+            seconds_in_memory_count += LOG_INTERVAL
+
+        time.sleep(LOG_INTERVAL)
+
+
+if __name__ == '__main__':
+    log_active_app_per_second()
