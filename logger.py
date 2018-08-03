@@ -3,7 +3,7 @@ import subprocess
 import json
 import time
 from datetime import datetime
-from utils import read_log, update_log
+from utils import read_log, update_log, abs_path
 
 # how often should the log file be overwritten (every MEMORY_SECONDS seconds)
 MEMORY_SECONDS = 10
@@ -11,7 +11,7 @@ LOG_INTERVAL = 1
 
 
 def get_active_window_names():
-    abs_filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'get_window.sh')
+    abs_filepath = abs_path('get_window.sh')
     win_id = subprocess.getoutput(abs_filepath).strip()
     if len(win_id.split()) != 2:
         return ['other']
@@ -24,7 +24,7 @@ def get_active_window_names():
 
 
 def get_application_name(window_names):
-    with open('app_names.json') as f:
+    with open(abs_path('app_names.json')) as f:
         name_dict = json.load(f)
     
     app_name = ""

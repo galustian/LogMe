@@ -5,7 +5,7 @@ import os
 import datetime
 import json
 from multiprocessing import Process
-from utils import read_log_only
+from utils import read_log_only, abs_path
 from logger import log_active_app_per_second
 
 
@@ -107,7 +107,7 @@ def get_available_dates_in_ordered_list(days, from_date, to_date):
 
 def get_all_app_names():
     app_names_list = []
-    with open('app_names.json') as f:
+    with open(abs_path('app_names.json')) as f:
         app_names_dict = json.load(f)
     for key in app_names_dict:
         if app_names_dict[key] not in app_names_list:
@@ -119,7 +119,7 @@ def get_all_app_names():
 
 
 def get_app_colors_dict():
-    with open('app_colors.json') as f:
+    with open(abs_path('app_colors.json')) as f:
         colors_dict = json.load(f)
     return colors_dict
 
@@ -175,7 +175,7 @@ def get_years_logs(from_year, to_year):
     logs = {}
     years_list = [y for y in range(from_year, to_year + 1)]
     for y in years_list:
-        if os.path.isfile('logs/log-{}.json'.format(y)):
+        if os.path.isfile(abs_path('logs/log-{}.json'.format(y))):
             logs[y] = read_log_only(year=y)
 
     return logs
