@@ -1,6 +1,12 @@
 import os
 import json
 
+
+def update_log(log, year=None):
+    with open('logs/log-{}.json'.format(year), 'w') as f:
+        json.dump(log, f)
+
+
 def read_log(year=None):
     # if new year, create new log-file
     if not os.path.isfile('logs/log-{}.json'.format(year)):
@@ -11,6 +17,7 @@ def read_log(year=None):
         log = json.load(f)
     
     return log
+
 
 def read_log_only(year=None):
     with open('logs/log-{}.json'.format(year)) as f:
