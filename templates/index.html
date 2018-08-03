@@ -12,39 +12,116 @@
 			#selection {
 				margin: 0 auto;
 				text-align: center;
-				width 30 rem;
+				width: 30 rem;
+				z-index: 99999 !important;
 			}
 			html {
 				font-family: 'Ubuntu', 'Noto Sans', sans-serif !important;
 			}
-			button {
-				width: 7rem;
-				height: 2.1rem;
+			#graphbutton, #piebutton, #barbutton {
+				width: 7.3rem;
+				height: 2.3rem;
 				border: 1px solid black;
 				background: transparent;
 				cursor: pointer;
 				border-radius: 4px;
+				font-size: 0.9rem;
+				outline: none;
+				text-transform: uppercase;
+			}
+			#pie, #bar {
+				display: none;
+			}
+
+			input {
+				margin-right: 1rem;
+				border: 1px solid black;
+				border-radius: 4px;
+				padding: 3px 6px;
 			}
 		</style>
 
 	</head>
 	<body>
 		<div id="selection">
-			<h1>Choose a style</h1>
-			<button>Graph</button>
-			<button>Bar Chart</button>
-			<button>Pie Chart</button>
+			<div style="margin-bottom: 1.2rem;">
+				<h1>Charts & Options</h1>
+				<button id='graphbutton' style='background-color: #000; color: #FFF'>Graph</button>
+				<button id='piebutton'>Pie Chart</button>
+				<button id='barbutton'>Bar Chart</button>	
+			</div>
+			
+			<div>
+				<form action="/" method="GET">
+					<label for="start-date">Start date:</label>
+					<input type="text" name="start-date" id="start-date" placeholder="DD_MM_YYYY" value="{{ start_date }}" required>
+	
+					<label for="end-date">End date:</label>
+					<input type="text" name="end-date" id="end-date" placeholder="DD_MM_YYYY" value="{{ end_date }}" required>
+	
+					<input type="number" name="max-datapoints" id="max-datapoints" placeholder="points on x-axis (e.g. 31)" value="{{ max_points }}" required>
+					<button id="update">Update</button>
+				</form>
+			</div>
 		</div>
 		<div id="graph">
 			{{ html_graph | safe }}
+		</div>
+
+		<div id="pie">
+			{{ html_pie | safe }}
 		</div>
 
 		<div id="bar">
 			{{ html_bar | safe }}
 		</div>
 
-		<div id="pie">
-			{{ html_pie | safe }}
-		</div>
+		<script>
+			var graph = document.getElementById('graph');
+			var pie = document.getElementById('pie');
+			var bar = document.getElementById('bar');
+			
+			var graphbutton = document.getElementById('graphbutton');
+			var piebutton = document.getElementById('piebutton');
+			var barbutton = document.getElementById('barbutton');
+			
+			graphbutton.addEventListener('click', () => {
+				changeChartStyle(graph, pie, bar);
+				changeButtonStyle(graphbutton, barbutton, piebutton);
+			});
+
+			piebutton.addEventListener('click', () => {
+				changeChartStyle(pie, graph, bar);
+				changeButtonStyle(piebutton, graphbutton, barbutton);
+			});
+
+			barbutton.addEventListener('click', () => {
+				changeChartStyle(bar, graph, pie);
+				changeButtonStyle(barbutton, graphbutton, piebutton);
+			});
+
+			function changeChartStyle(active, inactive1, inactive2) {
+				active.style.display = 'block';
+				inactive1.style.display = 'none';
+				inactive2.style.display = 'none';
+			}
+
+			function changeButtonStyle(buttonActive, buttonInactive1, buttonInactive2) {
+				buttonActive.style.backgroundColor = '#000';
+				buttonActive.style.color = '#FFF';
+				
+				buttonInactive1.style.backgroundColor = '#FFF';
+				buttonInactive1.style.color = '#000';
+				
+				buttonInactive2.style.backgroundColor = '#FFF';
+				buttonInactive2.style.color = '#000';
+			}
+
+			/* ------------------------------------------- Updating Settings ------------------------------------------- */
+
+			var updateButton = document.getElementById('update');
+			
+
+		</script>
 	</body>
 </html>
