@@ -3,6 +3,8 @@ import subprocess
 import json
 import time
 from datetime import datetime
+from utils import read_log
+
 
 def get_active_window_names():
     abs_filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'get_window.sh')
@@ -15,6 +17,7 @@ def get_active_window_names():
         names[i] = names[i].strip('"')
     
     return names
+
 
 def get_application_name(window_names):
     with open('app_names.json') as f:
@@ -31,24 +34,16 @@ def get_application_name(window_names):
 
     return app_name
 
+
 def active_app_name():
     window_names = get_active_window_names()
     return get_application_name(window_names)
 
-def read_log(year=None):
-    # if new year, create new log-file
-    if not os.path.isfile('logs/log-{}.json'.format(year)):
-        update_log({}, year=year)
-        return {}
-
-    with open('logs/log-{}.json'.format(year)) as f:
-        log = json.load(f)
-    
-    return log
 
 def update_log(log, year=None):
     with open('logs/log-{}.json'.format(year), 'w') as f:
         json.dump(log, f)
+
 
 def log_active_app_per_second():
     # how often should the log file be overwritten (every MEMORY_SECONDS seconds)
