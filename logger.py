@@ -5,6 +5,10 @@ import time
 from datetime import datetime
 from utils import read_log, update_log
 
+# how often should the log file be overwritten (every MEMORY_SECONDS seconds)
+MEMORY_SECONDS = 10
+LOG_INTERVAL = 1
+
 
 def get_active_window_names():
     abs_filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'get_window.sh')
@@ -41,10 +45,6 @@ def active_app_name():
 
 
 def log_active_app_per_second():
-    # how often should the log file be overwritten (every MEMORY_SECONDS seconds)
-    MEMORY_SECONDS = 10
-    LOG_INTERVAL = 1
-
     now = datetime.now()
     
     log = read_log(year=now.year)

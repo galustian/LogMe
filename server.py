@@ -4,8 +4,9 @@ import mpld3
 import os
 import datetime
 import json
-import random
+from multiprocessing import Process
 from utils import read_log_only
+from logger import log_active_app_per_second
 
 
 app = Flask(__name__)
@@ -304,4 +305,8 @@ def homepage():
 
 
 if __name__ == '__main__':
+    p1 = Process(target=log_active_app_per_second)
+    p1.start()
     app.run(debug=True, port=5000)
+    p1.join()
+
