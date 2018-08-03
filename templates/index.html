@@ -3,8 +3,48 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Summary</title>
+		<style>
+			#graph, #bar, #pie {
+				margin: 0 auto;
+				text-align: center;
+				width: 85rem;
+			}
+			#selection {
+				margin: 0 auto;
+				text-align: center;
+				width 30 rem;
+			}
+			html {
+				font-family: 'Ubuntu', 'Noto Sans', sans-serif !important;
+			}
+			button {
+				width: 7rem;
+				height: 2.1rem;
+				border: 1px solid black;
+				background: transparent;
+				cursor: pointer;
+				border-radius: 4px;
+			}
+		</style>
+
 	</head>
 	<body>
-        {{ html_graph | safe }}
+		<div id="selection">
+			<h1>Choose a style</h1>
+			<button>Graph</button>
+			<button>Bar Chart</button>
+			<button>Pie Chart</button>
+		</div>
+		<div id="graph">
+			{{ html_graph | safe }}
+		</div>
+
+		<div id="bar">
+			{{ html_bar | safe }}
+		</div>
+
+		<div id="pie">
+			{{ html_pie | safe }}
+		</div>
 	</body>
 </html>

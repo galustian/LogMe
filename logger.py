@@ -30,7 +30,7 @@ def get_application_name(window_names):
             app_name = name_dict[name.lower()]
             break
         except KeyError:
-            app_name = "Other"
+            app_name = "other"
 
     return app_name
 

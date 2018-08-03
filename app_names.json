@@ -1,13 +1,12 @@
 {
-    "code": "Visual Studio Code",
-    "jetbrains-idea-ce": "JetBrains IDEA",
-    "jetbrains-pycharm-ce": "JetBrains PyCharm",
+    "code": "Programming",
+    "jetbrains-idea-ce": "Programming",
+    "jetbrains-pycharm-ce": "Programming",
     
     "gnome-terminal": "Terminal",
     "libreoffice": "LibreOffice",
     "xreader": "PDF Reader",
     
-    "keepassx": "KeePass",
     "spotify": "Spotify",
     
     "google-chrome": "Internet",
