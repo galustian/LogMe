@@ -3,7 +3,7 @@ import subprocess
 import json
 import time
 from datetime import datetime
-from utils import read_log
+from utils import read_log, update_log
 
 
 def get_active_window_names():
@@ -38,11 +38,6 @@ def get_application_name(window_names):
 def active_app_name():
     window_names = get_active_window_names()
     return get_application_name(window_names)
-
-
-def update_log(log, year=None):
-    with open('logs/log-{}.json'.format(year), 'w') as f:
-        json.dump(log, f)
 
 
 def log_active_app_per_second():
