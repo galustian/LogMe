@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 import json
 import time
@@ -78,5 +79,28 @@ def log_active_app_per_second():
         time.sleep(LOG_INTERVAL)
 
 
-if __name__ == '__main__':
-    log_active_app_per_second()
+#if __name__ == '__main__':
+# Create daemon process to run in the background
+pid = os.fork()
+
+if pid < 0:
+    sys.exit(1)
+if pid > 0:
+    print("Daemon PID: ", pid)
+    sys.exit(0)
+
+os.setsid()
+if os.getsid(0) < 0:
+    sys.exit(1)
+
+os.chdir('/')
+os.umask(0)
+
+sys.stdin.close()
+sys.stdout.close()
+sys.stderr.close()
+os.close(0)
+os.close(1)
+os.close(2)
+
+log_active_app_per_second()
