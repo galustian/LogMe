@@ -79,7 +79,6 @@ def log_active_app_per_second():
         time.sleep(LOG_INTERVAL)
 
 
-#if __name__ == '__main__':
 # Create daemon process to run in the background
 pid = os.fork()
 
