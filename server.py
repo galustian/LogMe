@@ -2,11 +2,14 @@ from flask import Flask, request, render_template, abort
 import matplotlib.pyplot as plt
 import mpld3
 import os
+import sys
 import datetime
 import json
-# from multiprocessing import Process
 from utils import read_log_only, abs_path
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.FATAL)
 
 app = Flask(__name__)
 
@@ -302,9 +305,5 @@ def homepage():
     }
     return render_template('index.html', **template_args)
 
-
 if __name__ == '__main__':
-    # p1 = Process(target=log_active_app_per_second)
-    # p1.start()
     app.run(debug=False, port=5000)
-    # p1.join()
